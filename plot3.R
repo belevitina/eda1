@@ -1,0 +1,8 @@
+h_p_c <- file("household_power_consumption.txt")
+h_p_cons <-read.table(text = grep("^[1,2]/2/2007",readLines(h_p_c),value=TRUE), sep = ';', col.names = c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), na.strings = '?')
+png(filename = './plot3.png', width = 504, height = 504, units='px')
+plot(h_p_cons$DateTime, h_p_cons$Sub_metering_1, xlab = '', ylab = 'Energy sub metering', type = 'l')
+lines(h_p_cons$DateTime, h_p_cons$Sub_metering_2, col = 'red')
+lines(h_p_cons$DateTime, h_p_cons$Sub_metering_3, col = 'blue')
+legend('topright', col = c('black', 'red', 'blue'), legend = c('Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3'), lwd = 1)
+dev.off()

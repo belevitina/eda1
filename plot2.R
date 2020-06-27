@@ -1,0 +1,7 @@
+h_p_c <- file("household_power_consumption.txt")
+h_p_cons <-read.table(text = grep("^[1,2]/2/2007",readLines(h_p_c),value=TRUE), sep = ';', col.names = c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), na.strings = '?')
+h_p_cons$Date <- as.Date(h_p_cons$Date, format = '%d/%m/%Y')
+h_p_cons$DateTime <- strptime(paste(h_p_cons$Date, h_p_cons$Time),"%Y-%m-%d %H:%M:%S")
+png(filename = './plot2.png', width = 504, height = 504, units='px')
+plot(h_p_cons$DateTime, h_p_cons$Global_active_power, xlab = '', ylab = 'Global Active Power (kilowatt)', type = 'l')
+dev.off()
